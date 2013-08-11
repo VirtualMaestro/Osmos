@@ -37,7 +37,6 @@ package modules
 	import nape.phys.BodyType;
 
 	import vm.math.numbers.NumberUtil;
-	import vm.math.rand.RandUtil;
 
 	/**
 	 */
