@@ -1,0 +1,44 @@
+{
+    "hero": 
+	{
+        "color": 
+		{
+            "alpha": "255",
+            "red": "25",
+            "green": "255",
+            "blue": "255"
+        },
+		
+		"maxSpeed": "10",
+		"acceleration": "1"
+    },
+    
+	"enemy": 
+	{
+        "colorStart": 
+		{
+            "alpha": "255",
+            "red": "0",
+            "green": "0",
+            "blue": "255"
+        },
+        
+		"colorEnd": 
+		{
+            "alpha": "255",
+            "red": "255",
+            "green": "0",
+            "blue": "0"
+        },
+		
+		"quantity": "30",
+		"minRadius": "10",
+		"maxRadius": "30"
+    },
+	
+	"world":
+	{
+		"width": "1000",
+		"height": "1000"
+	}
+}
