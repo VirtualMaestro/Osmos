@@ -119,7 +119,6 @@ package modules
 			createFloor();
 			createWalls();
 			generateSpheres();
-//			createHero();
 			updateEnemiesColors();
 		}
 
