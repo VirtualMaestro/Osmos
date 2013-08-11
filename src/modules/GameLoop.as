@@ -9,7 +9,6 @@ package modules
 	import actors.components.SphereLogic;
 
 	import bb.camera.BBCamerasModule;
-
 	import bb.camera.components.BBCamera;
 	import bb.core.BBNode;
 	import bb.layer.BBLayerModule;
@@ -28,22 +27,17 @@ package modules
 	import de.polygonal.ds.DLL;
 	import de.polygonal.ds.DLLNode;
 
-	import flash.events.TimerEvent;
 	import flash.geom.Rectangle;
 
 	import modules.gameStates.LoseState;
-
 	import modules.gameStates.SplashState;
 	import modules.gameStates.WinState;
 
 	import nape.geom.Vec3;
-
 	import nape.phys.BodyType;
 
 	import vm.math.numbers.NumberUtil;
-
 	import vm.math.rand.RandUtil;
-	import vm.times.TimeUtil;
 
 	/**
 	 */
@@ -107,8 +101,7 @@ package modules
 			_layerModule.addTo(BBLayerNames.FOREGROUND, BBLayerNames.MAIN);
 
 			//
-			cameraMain.border = new Rectangle(-Config.worldWidth/2, -Config.worldHeight/2, Config.worldWidth, Config.worldHeight);
-//			cameraMain.zoom = 0.5;
+			cameraMain.border = new Rectangle(-Config.worldWidth / 2, -Config.worldHeight / 2, Config.worldWidth, Config.worldHeight);
 		}
 
 		/**
@@ -126,8 +119,8 @@ package modules
 			clearLevel();
 			createFloor();
 			createWalls();
-			generateEnemies();
-			createHero();
+			generateSpheres();
+//			createHero();
 			updateEnemiesColors();
 		}
 
@@ -137,10 +130,10 @@ package modules
 		{
 			var floorTexture:BBTexture = BBTexture.getTextureById(Assets.FLOOR_ID);
 
-			var numWidth:int = Math.ceil(Config.worldWidth/floorTexture.width);
-			var numHeight:int = Math.ceil(Config.worldHeight/floorTexture.height);
-			var ltX:Number = -Config.worldWidth/2;
-			var ltY:Number = -Config.worldHeight/2;
+			var numWidth:int = Math.ceil(Config.worldWidth / floorTexture.width);
+			var numHeight:int = Math.ceil(Config.worldHeight / floorTexture.height);
+			var ltX:Number = -Config.worldWidth / 2;
+			var ltY:Number = -Config.worldHeight / 2;
 			var ltYt:Number = ltY;
 			var sprite:BBSprite;
 
@@ -159,6 +152,7 @@ package modules
 				ltYt = ltY;
 			}
 		}
+
 		/**
 		 */
 		public function clearLevel():void
@@ -179,33 +173,38 @@ package modules
 		private function createWalls():void
 		{
 			var bottomWall:BBNode = BBPrototyping.getBox(Config.worldWidth, 50, "", 0xff78513D, BodyType.STATIC, Config.wallsMaterial, Config.wallsCollisionFilter);
-			bottomWall.transform.setPosition(0,Config.worldHeight/2);
+			bottomWall.transform.setPosition(0, Config.worldHeight / 2);
 			(bottomWall.getComponent(BBPhysicsBody) as BBPhysicsBody).body.cbTypes.add(Config.wallCb);
 			_world.add(bottomWall, BBLayerNames.MIDDLEGROUND);
 
 			var topWall:BBNode = BBPrototyping.getBox(Config.worldWidth, 50, "", 0xff78513D, BodyType.STATIC, Config.wallsMaterial, Config.wallsCollisionFilter);
-			topWall.transform.setPosition(0,-Config.worldHeight/2);
+			topWall.transform.setPosition(0, -Config.worldHeight / 2);
 			(topWall.getComponent(BBPhysicsBody) as BBPhysicsBody).body.cbTypes.add(Config.wallCb);
 			_world.add(topWall, BBLayerNames.MIDDLEGROUND);
 
 			var leftWall:BBNode = BBPrototyping.getBox(50, Config.worldHeight, "", 0xff78513D, BodyType.STATIC, Config.wallsMaterial, Config.wallsCollisionFilter);
-			leftWall.transform.setPosition(-Config.worldWidth/2,0);
+			leftWall.transform.setPosition(-Config.worldWidth / 2, 0);
 			(leftWall.getComponent(BBPhysicsBody) as BBPhysicsBody).body.cbTypes.add(Config.wallCb);
 			_world.add(leftWall, BBLayerNames.MIDDLEGROUND);
 
 			var rightWall:BBNode = BBPrototyping.getBox(50, Config.worldHeight, "", 0xff78513D, BodyType.STATIC, Config.wallsMaterial, Config.wallsCollisionFilter);
-			rightWall.transform.setPosition(Config.worldWidth/2, 0);
+			rightWall.transform.setPosition(Config.worldWidth / 2, 0);
 			(rightWall.getComponent(BBPhysicsBody) as BBPhysicsBody).body.cbTypes.add(Config.wallCb);
 			_world.add(rightWall, BBLayerNames.MIDDLEGROUND);
 		}
 
-		private function generateEnemies():void
+		/**
+		 */
+		private function generateSpheres():void
 		{
 			var spheresData:Vector.<Vec3> = SphereFactory.getSpheresData();
 			var sphereData:Vec3;
 			var enemy:BBNode;
 			var numSpheres:int = spheresData.length;
-			for (var i:int = 0; i < numSpheres; i++)
+
+			createHero(spheresData[0]);
+
+			for (var i:int = 1; i < numSpheres; i++)
 			{
 				sphereData = spheresData[i];
 				enemy = SphereFactory.createSphere(sphereData.z);
@@ -246,10 +245,10 @@ package modules
 
 		/**
 		 */
-		private function createHero():void
+		private function createHero(p_sphereData:Vec3):void
 		{
-			_hero = SphereFactory.createSphere();
-			_hero.transform.setPosition(RandUtil.getIntRange(-Config.worldWidth/2 + 30, Config.worldWidth/2 - 30), RandUtil.getIntRange(-Config.worldHeight/2 + 30, Config.worldHeight/2 - 30));
+			_hero = SphereFactory.createSphere(p_sphereData.z);
+			_hero.transform.setPosition(p_sphereData.x, p_sphereData.y);
 			_hero.transform.color = Config.heroColor.color;
 			_world.add(_hero, BBLayerNames.MIDDLEGROUND);
 
@@ -287,7 +286,7 @@ package modules
 		private function updateEnemiesColors():void
 		{
 			var headEnemies:DLLNode = _enemyBalls.head;
-			while(headEnemies)
+			while (headEnemies)
 			{
 				updateEnemyColor(headEnemies.val as BBNode);
 				headEnemies = headEnemies.next;
@@ -298,7 +297,7 @@ package modules
 		 */
 		private function updateEnemyColor(p_enemy:BBNode):void
 		{
-			var halfRange:int = _gradient.length/2;
+			var halfRange:int = _gradient.length / 2;
 			var heroArea:Number = _heroLogic.area;
 			var sphereLogic:SphereLogic;
 			var diffArea:Number;
@@ -307,10 +306,10 @@ package modules
 
 			sphereLogic = p_enemy.getComponent(SphereLogic) as SphereLogic;
 			diffArea = sphereLogic.area - heroArea;
-			diffColor = NumberUtil.convertToRange(diffArea, 0, _totalArea, 0, _colorRange*2);
+			diffColor = NumberUtil.convertToRange(diffArea, 0, _totalArea, 0, _colorRange * 2);
 			newEnemyColor = halfRange + diffColor;
 			if (newEnemyColor < 0) newEnemyColor = 0;
-			else if (newEnemyColor > _gradient.length-1) newEnemyColor = _gradient.length-1;
+			else if (newEnemyColor > _gradient.length - 1) newEnemyColor = _gradient.length - 1;
 			p_enemy.transform.color = _gradient[newEnemyColor];
 		}
 

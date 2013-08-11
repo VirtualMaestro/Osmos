@@ -13,19 +13,10 @@ package modules
 	import bb.signals.BBSignal;
 
 	import nape.callbacks.CbEvent;
-	import nape.callbacks.CbType;
-	import nape.callbacks.CbTypeIterator;
-	import nape.callbacks.CbTypeList;
 	import nape.callbacks.InteractionCallback;
-
 	import nape.callbacks.InteractionListener;
 	import nape.callbacks.InteractionType;
-
-	import nape.callbacks.Listener;
-	import nape.callbacks.OptionType;
 	import nape.phys.Body;
-	import nape.shape.Circle;
-
 	import nape.space.Space;
 
 	import treefortress.sound.SoundAS;

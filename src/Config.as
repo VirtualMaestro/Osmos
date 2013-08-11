@@ -32,9 +32,9 @@ package
 		static public var worldWidth:int = 1000;
 		static public var worldHeight:int = 1000;
 
-		static public var startEnemyColor:BBColor = new BBColor(1,0,0,1);
-		static public var endEnemyColor:BBColor = new BBColor(1,1,0,0);
-		static public var heroColor:BBColor = new BBColor(1,1,0,0);
+		static public var startEnemyColor:BBColor = new BBColor(1, 0, 0, 1);
+		static public var endEnemyColor:BBColor = new BBColor(1, 1, 0, 0);
+		static public var heroColor:BBColor = new BBColor(1, 1, 0, 0);
 
 		static public var heroMaxSpeed:Number = 20;
 		static public var heroAcceleration:Number = 1;

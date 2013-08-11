@@ -5,7 +5,6 @@ package
 	import bb.core.BabyBox;
 	import bb.mouse.constants.BBMouseActions;
 	import bb.signals.BBSignal;
-	import bb.vo.BBColor;
 
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -17,13 +16,14 @@ package
 
 	/**
 	 */
-	[SWF(width="800", height="600", frameRate="30")]
+	[SWF(width="800", height="600", frameRate="40")]
 	public class Osmos extends Sprite
 	{
 		private var _babyBox:BabyBox;
+
 		public function Osmos()
 		{
-			 if (stage) loadSettings();
+			if (stage) loadSettings();
 			else addEventListener(Event.ADDED_TO_STAGE, loadSettings);
 		}
 
@@ -74,7 +74,7 @@ package
 			_babyBox = BabyBox.get();
 			var config:BBConfig = new BBConfig(800, 600, 40);
 			config.physicsEnable = true;
-			config.setGravity(0,0);
+			config.setGravity(0, 0);
 			config.handEnable = true;
 			config.debugMode = false;
 			config.mouseSettings = BBMouseActions.UP | BBMouseActions.DOWN;

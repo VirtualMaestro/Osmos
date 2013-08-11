@@ -64,7 +64,6 @@ package actors.components
 			_isAbsorption = true;
 
 			var enemyCircle:Circle = p_enemy.body.shapes.at(0) as Circle;
-//			var absorbArea:Number = (area / 5) > minBallArea ? area / 5 : enemyCircle.area;
 			var speedAbsorption:Number = (enemyCircle.area / 5) + area * 0.005;
 			var absorbArea:Number = speedAbsorption > minBallArea ? speedAbsorption : enemyCircle.area;
 
@@ -82,9 +81,6 @@ package actors.components
 
 			//
 			(p_enemy.node.getComponent(SphereLogic) as SphereLogic).exhaustion(absorbArea);
-
-			//
-//			onAbsorption.dispatch();
 
 			//
 			if (!_absorptionSnd.isPlaying) _absorptionSnd.play();
