@@ -108,7 +108,7 @@ package modules.gameStates
 
 		/**
 		 */
-		override public function update(p_deltaTime:Number):void
+		override public function update(p_deltaTime:int):void
 		{
 			_currentSpeed += _acceleration;
 			if (_currentSpeed > _speedMax) _currentSpeed = _speedMax;
