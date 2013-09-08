@@ -77,7 +77,7 @@ package actors.components
 
 			physics.setScale(physics.scaleX + coef, physics.scaleY + coef);
 			coef = physics.body.bounds.width / graphic.getTexture().width;
-			graphic.scaleX = graphic.scaleY = coef;
+			graphic.offsetScaleX = graphic.offsetScaleY = coef;
 
 			//
 			(p_enemy.node.getComponent(SphereLogic) as SphereLogic).exhaustion(absorbArea);
@@ -113,7 +113,7 @@ package actors.components
 
 				physics.setScale(physics.scaleX + coef, physics.scaleY + coef);
 				coef = physics.body.bounds.width / graphic.getTexture().width;
-				graphic.scaleX = graphic.scaleY = coef;
+				graphic.offsetScaleX = graphic.offsetScaleY = coef;
 			}
 			else
 			{
