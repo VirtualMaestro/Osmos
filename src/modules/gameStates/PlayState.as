@@ -92,8 +92,8 @@ package modules.gameStates
 				case BBMouseEvent.DOWN:
 				{
 					updateEnable = true;
-					_cursorX = event.cameraX;
-					_cursorY = event.cameraY;
+					_cursorX = event.worldX;
+					_cursorY = event.worldY;
 					break;
 				}
 
